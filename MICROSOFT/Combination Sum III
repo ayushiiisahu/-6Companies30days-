@@ -1,2 +1,32 @@
+//Link : https://leetcode.com/problems/combination-sum-iii/description/
 
+class Solution {
+public:
+    void comb(int sum,int k,int n,vector<int> &vect,vector<vector<int>> &ans)
+    {
+        if(n == 0 && k == 0)
+        {
+            ans.push_back(vect);
+            return;
+        }
+        
+        for(int i=sum;i<=9;i++)
+        {
+            vect.push_back(i);
+            comb(i+1,k-1,n-i,vect,ans);
+            vect.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum3(int k, int n)
+    {
+        vector<int> vect;
+        vector<vector<int>> ans;
+        comb(1,k,n,vect,ans);
+        return ans;
+    }
+};
 
+/*
+Time Complexity:  O((9Ck)*k), where 9Ck is all possible subsets and k to copy subsets into ans vector.
+Space Complexity: O((9Ck)*k), to store all 9Ck subset in the ans vector of size k.
+*/
