@@ -1,4 +1,48 @@
-/*
-Link to the problem
-https://leetcode.com/problems/evaluate-reverse-polish-notation/
-*/
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) 
+    {
+        //using stack
+        stack<int> st;
+        for(int i=0;i<tokens.size();i++)
+        {
+            if(tokens[i] == "+")
+            {
+                int num1 = st.top();
+                st.pop();
+                int num2 = st.top();
+                st.pop();
+                st.push(num1+num2);
+            }
+            else if(tokens[i] == "-")
+            {
+                int num1 = st.top();
+                st.pop();
+                int num2 = st.top();
+                st.pop();
+                st.push(num2-num1);
+            }
+            else if(tokens[i] == "*")
+            {
+                int num1 = st.top();
+                st.pop();
+                int num2 = st.top();
+                st.pop();
+                st.push(num1*num2);
+            }
+            else if(tokens[i] == "/")
+            {
+                int num1 = st.top();
+                st.pop();
+                int num2 = st.top();
+                st.pop();
+                st.push(num2/num1);
+            }
+            else
+                st.push(stoi(tokens[i]));
+        }
+        int ans = st.top();
+        st.pop();
+        return ans;
+    }
+};
