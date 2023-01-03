@@ -1,1 +1,49 @@
 // Link : https://leetcode.com/problems/course-schedule/
+
+class Solution {
+public:
+    bool checkCycle(int node,vector<bool> &vis,vector<bool> &dfs,vector<int> adj[])
+    {
+        vis[node] = 1;
+        dfs[node] = 1;
+        for(auto i : adj[node])
+        {
+            if(!vis[i])
+            {
+                if(checkCycle(i,vis,dfs,adj))
+                    return true;
+            }
+            else if(dfs[i]) 
+                return true;
+        }
+        dfs[node] = 0;
+        return false;
+    }
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) 
+    {
+        //store in the adjacency list
+        vector<int> adj[numCourses];
+        for(int i=0;i<prerequisites.size();i++)
+        {
+            adj[prerequisites[i][0]].push_back(prerequisites[i][1]);
+        }
+        
+        //dfs 
+        vector<bool> vis(numCourses,0),dfs(numCourses,0);
+        for(int i=0;i<numCourses;i++)
+        {
+            if(!vis[i])
+                if(checkCycle(i,vis,dfs,adj)) //check if there is a cycle
+                    return false;
+        }   
+
+        //if no cycle found
+        return true;
+    }
+};
+
+/*
+Time Complexity : O(V + E)
+Space Complexity :O(V + E)
+where V is vertices , E is edges.
+*/
