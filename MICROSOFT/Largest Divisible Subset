@@ -1,1 +1,66 @@
 // Link : https://leetcode.com/problems/largest-divisible-subset/
+
+/*
+To get a better understanding of this question solve this first 
+https://leetcode.com/problems/longest-increasing-subsequence/
+
+Note : Always start with writing the recursive solution before memoizing it and finally write the tabulation code.
+*/
+
+class Solution {
+public:
+    vector<int> largestDivisibleSubset(vector<int>& nums) 
+    {
+        //sort the array of elements
+        sort(nums.begin(),nums.end());
+
+        int n = nums.size();
+        //to store the length till a particular index
+        vector<int> dp(n,1);
+        //stores the prev index of the particular index
+        vector<int> hash(n,1);
+
+        for(int i=0;i<n;i++)
+        {
+            hash[i] = i; //intialise with current index
+            for(int prev=0;prev<i;prev++)
+            {
+                if(nums[i] % nums[prev] == 0 && 1 + dp[prev] > dp[i])
+                {
+                    dp[i] = 1 + dp[prev];
+                    hash[i] = prev;
+                }
+            }
+        }
+        
+        //finding the max length and last index
+        int maxlen = -1;
+        int last_index = -1;
+        for(int i=0;i<n;i++)
+        {
+            if(maxlen < dp[i])
+            {
+                maxlen = dp[i];
+                last_index = i;
+            }
+        }
+
+        //storing it in ans vector
+        vector<int> ans;
+        ans.push_back(nums[last_index]);
+        while(hash[last_index] != last_index)
+        {
+            last_index = hash[last_index];
+            ans.push_back(nums[last_index]);
+        }
+        
+        //print ans vector
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
+
+/*
+Time Complexity :
+Space Complexity : 
+*/
