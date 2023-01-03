@@ -1,1 +1,28 @@
 // Link : https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
+
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) 
+    {
+        //create a copy array and sort it
+        vector<int> temp = nums;
+        sort(temp.begin(),temp.end());
+        
+        int start = nums.size(), end = 0;
+        for(int i=0;i<nums.size();i++)
+        {
+            //compare the two arrays to find the correct position of the element
+            if(temp[i] != nums[i])
+            {
+                start = min(start,i);
+                end = max(end,i);
+            }
+        }
+        return (end - start >= 0 ? end - start + 1 : 0);
+    }
+};
+
+/*
+Time Complexity : O(N)
+Space Complexity : O(N)
+*/
