@@ -1,1 +1,21 @@
 // Link : https://leetcode.com/problems/airplane-seat-assignment-probability/
+
+/*
+A good explaination for the solution
+https://leetcode.com/problems/airplane-seat-assignment-probability/solutions/411905/it-s-not-obvious-to-me-at-all-foolproof-explanation-here-and-proof-for-why-it-s-1-2/
+*/
+
+class Solution{
+public:
+    double nthPersonGetsNthSeat(int n) 
+    {
+        if(n == 1)
+            return 1;
+        return (double)1/2;
+    }
+};
+
+/*
+Time Complexity : O(1)
+Space Complexity : O(1)
+*/
