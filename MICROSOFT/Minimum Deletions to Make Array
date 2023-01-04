@@ -1,1 +1,32 @@
 Link : https://leetcode.com/problems/minimum-deletions-to-make-array-divisible/
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, vector<int>& numsDivide)
+    {
+        sort(nums.begin(),nums.end());
+        sort(numsDivide.begin(),numsDivide.end());
+
+        //find the gcd of all elements in numsDivide
+        int gcd = numsDivide[0];
+        for(int i=1;i<numsDivide.size();i++)
+        {
+            gcd = __gcd(numsDivide[i],gcd);
+        }
+        int ans = -1;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(gcd%nums[i] == 0)
+            {
+                ans = i;
+                break;
+            }
+        }
+        return ans;
+    }
+};
+
+/*
+Time Complexity : O(NLOGN) + O(NLOGN) + O(N)
+Space Complexity : O(1)
+*/
