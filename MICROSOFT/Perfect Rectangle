@@ -1,1 +1,47 @@
 // Link : https://leetcode.com/problems/perfect-rectangle/
+
+/*
+We store the points and its count in a map
+If it is a valid rectangle, all interior points should have count 0, 
+bottom left most and top right most point should have value 1, 
+and top left and bottom right should have count -1. 
+If it is different than this, it is not a perfect rectangle.
+*/
+
+class Solution {
+public:
+    bool isRectangleCover(vector<vector<int>>& rectangles)
+    {
+        int n = rectangles.size();
+        map<pair<int,int>,int> mp;
+        if(n == 1)
+            return true;
+
+        for(auto points :rectangles)
+        {
+            mp[{points[0] ,points[1]}]++; //bottom left
+            mp[{points[2] ,points[3]}]++; //top right
+            mp[{points[0] ,points[3]}]--; //top left
+            mp[{points[2] ,points[1]}]--; //bottom right
+        }
+
+        int ans = 0;
+
+        for(auto it = mp.begin(); it != mp.end(); it++) 
+        {
+            if(it->second != 0)
+            {
+                if(abs(it->second) != 1) 
+                    return false;
+                ans++;
+            }
+        }
+
+        return ans == 4;
+    }
+};
+
+/*
+Time Complexity : O(N)
+Space Complexity : O(N)
+*/
