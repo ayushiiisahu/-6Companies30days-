@@ -1,0 +1,25 @@
+//Link : https://leetcode.com/problems/factorial-trailing-zeroes/description/
+
+#define ll long long 
+class Solution {
+public:
+    int trailingZeroes(int n) 
+    {
+        //we find the factors of 5
+
+	    ll int ans =0;
+	
+	    while(n>=5)
+	    {
+		    ans += n/5;
+		    n=n/5;
+	    }
+	
+	    return ans;
+    }
+};
+
+/*
+Time Complexity : O(N)
+Space Complexity : O(1)
+*/
