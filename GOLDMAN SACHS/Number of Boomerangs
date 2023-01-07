@@ -1,2 +1,39 @@
 // Link : https://leetcode.com/problems/number-of-boomerangs/
 
+class Solution {
+public:
+    int numberOfBoomerangs(vector<vector<int>>& points) 
+    {
+        //find the distance of each point with the rest of the points and store the count of distance
+        int ans = 0;
+        if(points.size() < 3)
+            return ans;
+
+        for(int i=0;i<points.size();i++)
+        {
+            unordered_map<int,int> mp;
+            for(int j=0;j<points.size();j++)
+            {
+                if(i == j) continue;
+
+                int dist = (points[i][0]-points[j][0]) * (points[i][0]-points[j][0]);
+                dist += (points[i][1]-points[j][1]) * (points[i][1]-points[j][1]);
+                mp[dist]++;
+            }
+
+            for(auto i : mp)
+            {
+                // for all the groups of points,number of ways to select 2 from n = nP2 = n!/(n - 2)! = n * (n - 1)
+                if(i.second > 1)
+                    ans += i.second * (i.second - 1);
+            }
+        }
+
+        return ans;
+    }
+};
+
+/*
+Time Complexity : O(N^2)
+Space Complexity : O(N)
+*/
