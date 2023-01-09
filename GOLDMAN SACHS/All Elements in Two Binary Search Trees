@@ -33,7 +33,7 @@ public:
 };
 
 /*
-Time Complexity : O(N+M) 
+Time Complexity : O(N) + O(M) 
 Space Complexity : O(N+M)
 N = No of nodes in root1
 M = No of nodes in root2
