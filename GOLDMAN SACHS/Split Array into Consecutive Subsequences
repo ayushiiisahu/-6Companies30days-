@@ -1,0 +1,44 @@
+// https://leetcode.com/problems/split-array-into-consecutive-subsequences/
+
+class Solution {
+public:
+    bool isPossible(vector<int>& nums) 
+    {
+        //keep count of all elements
+        unordered_map<int,int> cnt;
+        for(auto ele : nums)
+        {
+            cnt[ele]++;
+        }
+        
+        unordered_map<int,int> mp;
+        for(auto ele : nums)
+        {
+            if(cnt[ele] == 0) continue;
+
+            if(mp[ele] > 0)
+            {
+                mp[ele]--;
+                cnt[ele]--;
+
+                mp[ele+1]++;
+            }
+            else if(cnt[ele] > 0 && cnt[ele+1] > 0 && cnt[ele+2] > 0) 
+            //check if there is a subseq of atleast len = 3
+            {
+                cnt[ele]--;
+                cnt[ele+1]--;
+                cnt[ele+2]--;
+
+                mp[ele+3]++;
+            }
+            else return false;
+        }
+        return true;
+    }
+};
+
+/*
+Time Complexity : O(N)
+Space Complexity : O(N) + O(N)
+*/
