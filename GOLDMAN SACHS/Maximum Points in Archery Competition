@@ -1,1 +1,40 @@
+//Link : https://leetcode.com/problems/maximum-points-in-an-archery-competition/
 
+class Solution {
+public:
+    int maxi = INT_MIN;
+    vector<int> bob;
+    void solve(int points,int ind,vector<int> &temp,vector<int> &alice,int arrows)
+    {
+        if(arrows == 0 ||ind < 0)
+        {
+            if(maxi < points)
+            {
+                maxi = points;
+                bob = temp;
+            }
+            return;
+        }
+        if(ind == 0)
+        {
+            temp[ind] = arrows;
+            solve(points+ind,ind-1,temp,alice,0);
+            temp[ind] = 0;
+            return;
+        }
+        else if(arrows >= alice[ind]+1)
+        {
+            temp[ind] = alice[ind]+1;
+            solve(points+ind,ind-1,temp,alice,arrows-(alice[ind]+1));
+            temp[ind] = 0;
+        }
+        solve(points,ind-1,temp,alice,arrows);
+    }
+    vector<int> maximumBobPoints(int arrows, vector<int>& alice) 
+    {
+        vector<int> temp(12,0);
+        int points = 0;
+        solve(points,11,temp,alice,arrows);
+        return bob;
+    }
+};
