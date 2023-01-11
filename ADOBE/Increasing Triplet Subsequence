@@ -2,26 +2,32 @@
 
 class Solution {
 public:
-    bool increasingTriplet(vector<int>& nums) 
-    {
-        int first = INT_MAX , second = INT_MAX;
-        for(auto ele : nums)
-        {
-            if(ele <= first){
-                first = ele;
+    bool increasingTriplet(vector<int>& nums) {
+        
+        // size of vector nums
+        int len=nums.size();
+        
+        // first store the first number of triplet && second store the second number of triplet
+        int firstNum=INT_MAX,secondNum=INT_MAX;
+        
+        // run a loop
+        for(int i=0;i<len;i++){
+            if(nums[i]<=firstNum){
+                // current element less than or equal to firstNum update first number
+                firstNum=nums[i];
             }
-            else if(ele <= second){
-                second = ele;
+            else if(nums[i]<=secondNum){
+                // current element greater than firstNum but less than or equal to secondNum update second number 
+                secondNum=nums[i];
             }
-            else 
+            else{
+                // current element greater than both firstNum && secondNum that is we found a third number of triplet 
                 return true;
+            }
         }
         return false;
     }
 };
-
-/*
-Time Complexity : O(N)
-Space Complexity : O(1)
-*/
+Time Complexity O(N)
+Space Complexity O(1)
 
