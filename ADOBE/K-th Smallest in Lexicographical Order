@@ -1,0 +1,32 @@
+//Link : 
+
+/*-------------------- OPTIMAL --------------------*/
+
+
+
+/*-------------------- TIME LIMIT EXCEEDED --------------------*/
+class Solution {
+public:
+    int findKthNumber(int n, int k) 
+    {
+        //store the int in a string vector
+        vector<string> temp;
+        for(int i=1;i<=n;i++)
+        {
+            temp.push_back(to_string(i));
+        }
+        sort(temp.begin(),temp.end());
+        //convert string values to int
+        vector<int> temp1;
+        for(int i=0;i<n;i++)
+        {
+            temp1.push_back(stoi(temp[i]));
+        }
+        return temp1[k-1];
+    }
+};
+
+/*
+Time Complexity : O(NLOGN)
+Space Complexity : O(N)
+*/
