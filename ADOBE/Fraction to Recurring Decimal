@@ -1,2 +1,48 @@
 //Link : https://leetcode.com/problems/fraction-to-recurring-decimal/
 
+class Solution {
+public:
+    string fractionToDecimal(int numerator, int denominator) 
+    {
+        if(!numerator)
+            return "0";
+        string ans = "";
+        //if -n/d or n/-d
+        if((numerator < 0 ) ^ (denominator < 0)) 
+        {
+            ans += '-'; 
+        }
+
+        long n, d, r; // numerator, denominator, and remainder
+        //labs : absolute value of long , long long int
+        n = labs((long)numerator);  
+        d = labs((long)denominator);
+
+        ans += to_string(n / d);
+        r = n % d;
+
+        if(!r)
+            return ans;
+        
+        unordered_map<long,int> m;
+        long q; //qoutient
+
+        ans += ".";
+
+        r *= 10;
+        while(r)
+        {
+            q = r / d;
+            if (m.count(r)) {
+                ans.insert(m[r], 1, '(');
+                ans += ')';
+                return ans;
+            }
+            m[r] = ans.size();
+            ans += to_string(q);
+            r = (r % d) * 10; 
+        }
+        return ans;
+    }
+};
+
