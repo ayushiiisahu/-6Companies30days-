@@ -1,2 +1,27 @@
 // Link : https://leetcode.com/problems/increasing-triplet-subsequence/
 
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) 
+    {
+        int first = INT_MAX , second = INT_MAX;
+        for(auto ele : nums)
+        {
+            if(ele <= first){
+                first = ele;
+            }
+            else if(ele <= second){
+                second = ele;
+            }
+            else 
+                return true;
+        }
+        return false;
+    }
+};
+
+/*
+Time Complexity : O(N)
+Space Complexity : O(1)
+*/
+
