@@ -1,2 +1,50 @@
 //Link : https://leetcode.com/problems/knight-probability-in-chessboard/
 
+*-----------------------------------TIME LIMIT EXCEEDED-----------------------------------*
+class Solution {
+public:
+    vector<vector<int>> dir = {{-2,-1},{-1,-2},{1,-2},{2,-1},{2,1},{1,2},{-1,2},{-2,1}};
+    double knightProbability(int n, int k, int r, int c) 
+    {
+        if(r<0 || r>=n || c<0 || c>=n)
+            return 0;
+        if(k == 0)
+            return 1;
+        double rate = 0;
+        for(int i=0;i<dir.size();i++)
+        {
+            rate += 0.125 * knightProbability(n, k-1, r+dir[i][0], c+dir[i][1]);
+        }
+        return rate;
+    }
+};
+
+*-----------------------------------MEMOISATION-----------------------------------*
+class Solution {
+public:
+    vector<vector<int>> dir = {{-2,-1},{-1,-2},{1,-2},{2,-1},{2,1},{1,2},{-1,2},{-2,1}};
+    double memo(vector<vector<vector<double>>> &dp, int& n, int k, int i, int j)
+    {
+        if(i < 0 || i >= n || j < 0 || j >= n) 
+            return 0;
+        if(k == 0)
+            return 1;
+        if(dp[i][j][k] != -1)
+            return dp[i][j][k];
+        double sum = 0;
+        for(int l = 0; l < 8; l++){
+            double temp = 0.125 * memo(dp, n, k - 1, i + dir[l][0], j + dir[l][1]);
+            sum += temp;
+        }
+        return dp[i][j][k] = sum;
+    }
+    double knightProbability(int n, int k, int r, int c) 
+    {
+        if(!k)
+            return 1.0;
+        vector<vector<vector<double>>> dp(n, vector<vector<double>>(n, vector<double>(k + 1, -1)));
+        memo(dp, n, k, r, c);
+        return dp[r][c][k];
+    }
+};
+
