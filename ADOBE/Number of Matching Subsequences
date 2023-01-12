@@ -1,1 +1,36 @@
 //Link : https://leetcode.com/problems/number-of-matching-subsequences/description/
+
+class Solution {
+public:
+    bool check(string s ,string word)
+    {
+        int j=0;
+        for(int i=0;i<s.length() && j<word.length();i++)
+        {
+            if(s[i] == word[j]) j++;
+        }
+        return (j == word.length());
+    }
+    int numMatchingSubseq(string s, vector<string>& words) 
+    {
+        unordered_map<string,bool> mp;
+        int count = 0;
+        for(auto word : words)
+        {
+            if(mp.find(word) != mp.end())
+            {
+                if(mp[word] == 1)
+                    count++;
+                continue;
+            }
+            mp[word] = check(s,word);
+            count += (mp[word] == 1);
+        }
+        return count;
+    }
+};
+
+/*
+Time Complexity : O(max(N,M)) N = length of s, M = length of word
+Space Complexity : O(N)
+*/
