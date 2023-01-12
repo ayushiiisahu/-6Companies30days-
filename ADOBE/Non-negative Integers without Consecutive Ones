@@ -1,0 +1,28 @@
+//Link : https://leetcode.com/problems/non-negative-integers-without-consecutive-ones/
+
+*-------------------------------TIME LIMITED EXCEEDED-------------------------------*
+class Solution {
+public:
+    bool checkBits(int n)
+    {
+        if ((n & (n >> 1)) == 0)
+        return true;
+    
+        return false;
+    }
+    int findIntegers(int n) 
+    {
+        int count = 0;
+        for(int i=0;i<=n;i++)
+        {
+            if(checkBits(i) == true)
+                count++;
+        }
+        return count;
+    }
+};
+
+/*
+Time Complexity : O(N)
+Space Complexity : O(1)
+*/
